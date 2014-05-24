@@ -259,7 +259,28 @@ class MainController {
         //println params
     }
 
-    def edit() {
+    def list() {
+        def accidents =  Accident.findAll();
+        [accidents:accidents]
+    }
+
+    def edit(){
+
+
+        if(params.editAction == null){
+            def selectId = Integer.parseInt(params.selectId)
+            def selectAccident =  Accident.get(selectId);
+            render(view: 'edit1',model:[accident:selectAccident])
+        }else  if(params.editAction == '1'){
+            def accidentId = Integer.parseInt(params.accidentId)
+            def selectAccident =  Accident.get(accidentId);
+            selectAccident.lat = Double.parseDouble(params.lat);
+            selectAccident.lon = Double.parseDouble(params.lon);
+            selectAccident.save();
+            redirect(controller: 'main',action: 'list');
+        }else{
+
+        }
 
     }
 }

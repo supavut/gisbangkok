@@ -10,11 +10,6 @@
 <head>
     <title>Create</title>
     <meta name="layout" content="bangkokLayout"/>
-    <!-- jQuery -->
-    <link rel="stylesheet" type="text/css"
-          href="${resource(dir: 'css', file: 'custom-theme/jquery-ui-1.10.4.custom.css')}"/>
-    <g:javascript src="jquery-ui-1.10.4/js/jquery-1.10.2.js"/>
-    <g:javascript src="jquery-ui-1.10.4/js/jquery-ui-1.10.4.js"/>
     <!-- Openlayers -->
     <g:javascript src="OpenLayers-2.13.1/OpenLayers.js"/>
     <script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>

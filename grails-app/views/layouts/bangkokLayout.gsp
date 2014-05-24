@@ -13,6 +13,13 @@
     <link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'plaindisplaycss/default.css')}" />
     <link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'plaindisplaycss/fonts.css')}" />
     <link href="http://fonts.googleapis.com/css?family=Varela" rel="stylesheet" />
+
+    <!-- jQuery -->
+    <link rel="stylesheet" type="text/css"
+          href="${resource(dir: 'css', file: 'custom-theme/jquery-ui-1.10.4.custom.css')}"/>
+    <g:javascript src="jquery-ui-1.10.4/js/jquery-1.10.2.js"/>
+    <g:javascript src="jquery-ui-1.10.4/js/jquery-ui-1.10.4.js"/>
+
     <g:layoutHead/>
 </head>
 
@@ -27,7 +34,7 @@
                 <ul>
                     <li class="${actionName=='index'?'current_page_item':''}"><a href="${createLink(controller :'main',action: 'index')}" accesskey="1" title="">Home</a></li>
                     <li class="${actionName=='create'?'current_page_item':''}"><a href="${createLink(controller :'main',action: 'create')}" accesskey="2" title="">Create data</a></li>
-                    <li class="${actionName=='edit'?'current_page_item':''}"><a href="${createLink(controller :'main',action: 'edit')}" accesskey="3" title="">Edit data</a></li>
+                    <li class="${actionName=='list'?'current_page_item':''}"><a href="${createLink(controller :'main',action: 'list')}" accesskey="3" title="">List data</a></li>
                 </ul>
             </div>
         </div>
