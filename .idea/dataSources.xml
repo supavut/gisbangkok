@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="4038215768">
+    <data-source source="LOCAL" name="Road_Accident_Phase1 dev" uuid="f8f41908-7b46-40a7-a0a7-d2ea01e1885f">
+      <driver-ref>mysql</driver-ref>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost/DEVDBNAME?useUnicode=yes&amp;characterEncoding=UTF-8</jdbc-url>
+      <user-name>dev</user-name>
+      <user-password>dfcedfcfdfdcdfdadfdd</user-password>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+
