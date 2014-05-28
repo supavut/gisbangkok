@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: yana_yanee
-  Date: 4/27/14 AD
-  Time: 14:31
+  User: Home
+  Date: 5/25/14
+  Time: 10:48 AM
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
@@ -50,9 +50,6 @@
             }
 
         });
-        var mode = '0';
-        var currentPoint;
-        var newPoint = 1;
         function init() {
             map = new OpenLayers.Map("map-canvas");
 
@@ -60,8 +57,7 @@
             //map.setOptions({restrictedExtent: new OpenLayers.Bounds(8, 44.5, 19, 50)});
 
             //create based layer
-            var gmap = new OpenLayers.Layer.Google("Google Streets", {numZoomLevels: 20,sphericalMercator: true});
-
+            var gmap = new OpenLayers.Layer.Google("Google Streets", {numZoomLevels: 20});
 
 
             //create vector layer
@@ -74,17 +70,12 @@
                         }
                     }
             );
-
-
             map.addLayers([gmap, vector]);
-            //gmap.mapObject.addOverlay(new GStreetviewOverlay());
-
-
 
             //set map center
             var BangkokPosition = new OpenLayers.LonLat("11193299.296468", "1545835.5748853");
             map.setCenter(BangkokPosition, 12);
-            currentPoint = BangkokPosition;
+
             //map.addControl(new OpenLayers.Control.LayerSwitcher());
 
             //add click event
@@ -94,59 +85,15 @@
 
             createTime();
 
-
+            $(function () {
+                $("#datepicker").datepicker({
+                    changeMonth: true,
+                    changeYear: true
+                });
+            });
 
             geocoder = new google.maps.Geocoder();
         }
-
-        $(function () {
-            $("#datepicker").datepicker({
-                changeMonth: true,
-                changeYear: true
-            });
-        });
-
-        function toggleStreetView() {
-            if(mode == 0){
-                var projWGS84 = new OpenLayers.Projection("EPSG:4326");
-                var proj900913 = new OpenLayers.Projection("EPSG:900913");
-                var point2
-                if(newPoint==1){
-                    point2 =  currentPoint.transform(proj900913, projWGS84);
-                    newPoint=0;
-                }else{
-                    point2=currentPoint;
-                }
-                //console.log(point2.lat);
-                //console.log(point2.lon);
-                document.getElementById("map-canvas").style.display='none';
-                document.getElementById("street-view").style.display='block';
-                var fenway = new google.maps.LatLng(point2.lat,point2.lon);
-                var panoOptions = {
-                    position: fenway,
-                    addressControlOptions: {
-                        position: google.maps.ControlPosition.BOTTOM
-                    },
-                    linksControl: false,
-                    panControl: false,
-                    zoomControlOptions: {
-                        style: google.maps.ZoomControlStyle.SMALL
-                    },
-                    enableCloseButton: false,
-                    visible:true
-                };
-
-                var panorama = new google.maps.StreetViewPanorama(
-                        document.getElementById("street-view"), panoOptions);
-                mode = 1;
-            }else{
-                document.getElementById("map-canvas").style.display='block';
-                document.getElementById("street-view").style.display='none';
-                mode = 0;
-            }
-
-        }
-
         function getAddress() {
 
             var addr = document.getElementById("address").value;
@@ -158,7 +105,6 @@
                 var lat = results[0].geometry.location.lat();
                 var lon = results[0].geometry.location.lng();
                 SearchPosition = new OpenLayers.LonLat(lon, lat);
-
                 map.setCenter(SearchPosition.transform(
                         new OpenLayers.Projection("EPSG:4326"),
                         map.getProjectionObject()
@@ -168,8 +114,6 @@
         function drawPoint(lat, lon) {
             vector.removeAllFeatures();
             var p1 = new OpenLayers.Geometry.Point(parseFloat(lon), parseFloat(lat));
-            currentPoint =  new OpenLayers.LonLat(parseFloat(lon),  parseFloat(lat));
-            newPoint = 1;
             var point = new OpenLayers.Feature.Vector(p1);
             vector.addFeatures(point);
             document.getElementById("lat").value = lat;
@@ -190,6 +134,9 @@
                 var opt = document.createElement('option');
                 opt.value = i;
                 opt.innerHTML = i;
+                if(parseInt("${accident.dateAccident.getMinutes()}") == i){
+                    opt.selected = "selected";
+                }
                 select.appendChild(opt);
             }
             var hourMin = 00;
@@ -200,6 +147,9 @@
                 var opt = document.createElement('option');
                 opt.value = i;
                 opt.innerHTML = i;
+                if(parseInt("${accident.dateAccident.getHours()}") == i){
+                    opt.selected = "selected";
+                }
                 select.appendChild(opt);
             }
         }
@@ -248,21 +198,8 @@
 <div id="sec1" style="display:block">
     <div class="extra container">
         <h2 align="middle">Section ข้อมูลพื้นฐาน</h2>
-        <div>
-            <input id="address" value="" type="text" size="200" placeholder="ค้นหาสถานที่"/>
-            <a href="" onclick="getAddress();
-            return false" class="button2">Search</a>
-            <br/>
-        </div>
-        <div id="all-map" style="position: relative;width: 100%;height: 500px;margin: 5px 0px;">
-            <input type="button" value="Toggle Street View" style="position: absolute;z-index: 2;right: 0;" onclick="toggleStreetView();" />
-            <div id="map-canvas">
 
-            </div>
-            <div id="street-view" style="height: 100%;display:none">
-            </div>
-        </div>
-        <div class="box">
+        <div class="tbox1">
             <table>
 
                 <tr>
@@ -270,7 +207,7 @@
                         <h4>วันที่</h4>
                     </td>
                     <td colspan="2">
-                        <g:field type="text" name="dateAccident" required="required" id="datepicker"/>
+                        <g:field type="text" name="dateAccident" value="${accident.dateAccident.format("MM/dd/yyyy")}" required="required" id="datepicker"/>
                     </td>
                 </tr>
                 <tr>
@@ -281,23 +218,29 @@
                         <div id="time">
                             <g:select name="hour" class="combobox" id="hour" from=""/>
                             :&nbsp;&nbsp;&nbsp;&nbsp;
-                            <g:select name="minute" class="combobox" id="minute" from=""/>
+                            <g:select name="minute" class="combobox"  id="minute" from=""/>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td><h4>ชื่อสถานีตำรวจนครบาล</h4></td>
-                    <td colspan="2"><g:field type="text" name="policeStation" required="required"
+                    <td colspan="2"><g:field type="text" name="policeStation" required="required" value="${accident.policeStation}"
                                              id="policeStation"/></td>
                 </tr>
                 <tr>
                     <td><h4>ชื่อถนน</h4></td>
-                    <td colspan="2"><g:field type="text" name="roadName" required="required" id="roadName"/></td>
+                    <td colspan="2"><g:field type="text" name="roadName" required="required"  value="${accident.roadName}" id="roadName"/></td>
                 </tr>
                 <tr>
                     <td colspan="3"><h4>พิกัดจีพีเอส</h4></td>
                 </tr>
-
+                <tr>
+                    <td colspan="3">
+                        <input id="address" value="" type="text" size="30"  placeholder="ค้นหาสถานที่"/>
+                        <a href="" onclick="getAddress();
+                        return false" class="button2">Search</a>
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         ละติจูด
@@ -328,6 +271,10 @@
 
             </table>
         </div>
+
+        <div class="tbox2">
+            <div id="map-canvas"></div>
+        </div>
     </div>
 </div>
 
@@ -339,6 +286,7 @@
             <h4>บริเวณเฉพาะที่เกิดเหตุ</h4>
             <ul name="sec2">
                 <g:radioGroup name="specificArea"
+                              value="${accident.specificArea}"
                               values="['ทางทั่วไป', 'ทางหลัก', 'ทางขนาน', 'ทางเข้าหรือทางออกหลัก', 'ไม่ระบุ']"
                               labels="['ทางทั่วไป', 'ทางหลัก', 'ทางขนาน', 'ทางเข้าหรือทางออกหลัก', 'ไม่ระบุ']">
                     <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
@@ -346,7 +294,9 @@
             </ul>
             <h4>ลักษณะถนนขณะเกิดเหตุ</h4>
             <ul>
-                <g:radioGroup name="roadAtCurrentTime" values="['ใช้งานปกติ', 'มีงานบำรุงรักษา', 'มีงานก่อสร้าง', '0']"
+                <g:radioGroup name="roadAtCurrentTime"
+                              value="${accident.roadAtCurrentTime}"
+                              values="['ใช้งานปกติ', 'มีงานบำรุงรักษา', 'มีงานก่อสร้าง', '0']"
                               labels="['ใช้งานปกติ', 'มีงานบำรุงรักษา', 'มีงานก่อสร้าง', 'อื่นๆ']">
                     <li>${it.radio}<span><g:message code="${it.label}"/>
                     <g:if test="${it.label == 'อื่นๆ'}">
@@ -358,7 +308,9 @@
             </ul>
             <h4>จำนวนช่องจราจร</h4>
             <ul>
-                <g:radioGroup name="roadLane" values="['2', '4', '6', '8 หรือมากกว่า']"
+                <g:radioGroup name="roadLane"
+                              value="${accident.roadLane}"
+                              values="['2', '4', '6', '8 หรือมากกว่า']"
                               labels="['2', '4', '6', '8 หรือมากกว่า']">
                     <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
                 </g:radioGroup>
@@ -368,7 +320,9 @@
         <div class="boxB">
             <h4>ทิศทาง</h4>
             <ul>
-                <g:radioGroup name="roadDirection" values="['มุ่งเหนือ', 'มุ่งใต้', 'มุ่งตะวันออก', 'มุ่งตะวันตก']"
+                <g:radioGroup name="roadDirection"
+                              value="${accident.roadDirection}"
+                              values="['มุ่งเหนือ', 'มุ่งใต้', 'มุ่งตะวันออก', 'มุ่งตะวันตก']"
                               labels="['มุ่งเหนือ', 'มุ่งใต้', 'มุ่งตะวันออก', 'มุ่งตะวันตก']">
                     <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
                 </g:radioGroup>
@@ -376,6 +330,7 @@
             <h4>ประเภทเกาะกลาง</h4>
             <ul>
                 <g:radioGroup name="islandType"
+                              value="${accident.islandType}"
                               values="['ไม่มีเกาะกลาง', 'เกาะกลางแบบสี', 'เกาะกลางแบบดินถมยกขึ้น', 'เกาะกลางแบบร่อง', 'มีอุปกรณ์กั้นกลางถนน', 'ไม่ระบุ']"
                               labels="['ไม่มีเกาะกลาง', 'เกาะกลางแบบสี', 'เกาะกลางแบบดินถมยกขึ้น', 'เกาะกลางแบบร่อง', 'มีอุปกรณ์กั้นกลางถนน', 'ไม่ระบุ']">
                     <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
@@ -383,7 +338,9 @@
             </ul>
             <h4>ชนิดผิวจราจร</h4>
             <ul>
-                <g:radioGroup name="roadType" values="['คอนกรีต', 'ลาดยาง', 'ลูกรัง']"
+                <g:radioGroup name="roadType"
+                              value="${accident.roadType}"
+                              values="['คอนกรีต', 'ลาดยาง', 'ลูกรัง']"
                               labels="['คอนกรีต', 'ลาดยาง', 'ลูกรัง']">
                     <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
                 </g:radioGroup>
@@ -404,21 +361,28 @@
             <div>
                 <h4>แนวราบ</h4>
                 <ul>
-                    <g:radioGroup name="horizontal" values="['ทางตรง', 'ทางโค้งปกติ', 'ทางโค้งหักศอก']"
+                    <g:radioGroup name="horizontal"
+                                  value="${accident.horizontal}"
+                                  values="['ทางตรง', 'ทางโค้งปกติ', 'ทางโค้งหักศอก']"
                                   labels="['ทางตรง', 'ทางโค้งปกติ', 'ทางโค้งหักศอก']">
                         <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
                     </g:radioGroup>
                 </ul>
                 <h4>ทางแยก</h4>
                 <ul>
+                    <g:each var="book" in="['ไม่ได้เกิดเหตุที่แยก', 'ทางแยกรูปตัว +', 'ทางแยกรูปตัว T', 'ทางแยกรูปตัว Y', 'วงเวียน', 'ทางแยกต่างระดับ/Ramps','ทางเเยกเข้าซอย/ทางเชื่อม', '0']">
+                        <p>Title: ${book}</p>
+                    </g:each>
                     <g:radioGroup name="intersection"
+                                  value="${['ไม่ได้เกิดเหตุที่แยก', 'ทางแยกรูปตัว +', 'ทางแยกรูปตัว T', 'ทางแยกรูปตัว Y', 'วงเวียน', 'ทางแยกต่างระดับ/Ramps','ทางเเยกเข้าซอย/ทางเชื่อม', '0'].contains(accident.intersection)?accident.intersection:0}"
                                   values="['ไม่ได้เกิดเหตุที่แยก', 'ทางแยกรูปตัว +', 'ทางแยกรูปตัว T', 'ทางแยกรูปตัว Y', 'วงเวียน', 'ทางแยกต่างระดับ/Ramps','ทางเเยกเข้าซอย/ทางเชื่อม', '0']"
                                   labels="['ไม่ได้เกิดเหตุที่แยก', 'ทางแยกรูปตัว +', 'ทางแยกรูปตัว T', 'ทางแยกรูปตัว Y', 'วงเวียน', 'ทางแยกต่างระดับ/Ramps','ทางเเยกเข้าซอย/ทางเชื่อม', 'อื่นๆ']">
                         <li>${it.radio}<span><g:message code="${it.label}"/>
-                            <g:if test="${it.label == 'อื่นๆ'}">
-                                <g:field type="text" name="intersectionOther" id="intersectionOther"
-                                         placeholder="ระบุ" maxlength="50"/>
-                            </g:if>
+                        <g:if test="${it.label == 'อื่นๆ'}">
+                            <g:field type="text" name="intersectionOther" id="intersectionOther"
+                                     value="${!['ไม่ได้เกิดเหตุที่แยก', 'ทางแยกรูปตัว +', 'ทางแยกรูปตัว T', 'ทางแยกรูปตัว Y', 'วงเวียน', 'ทางแยกต่างระดับ/Ramps','ทางเเยกเข้าซอย/ทางเชื่อม', '0'].contains(accident.intersection)?accident.intersection:0}"
+                                     placeholder="ระบุ" maxlength="50" />
+                        </g:if>
                         </span></li>
                     </g:radioGroup>
                 </ul>
@@ -463,10 +427,10 @@
                                       ,'รถจักรยานยนต์ชนคน','รถจักรยานยนต์ชนวัตถุ/สิ่งของ','รถยนต์ชนกัน','รถยนต์พลิกคว่ำ/ตกถนน','รถยนต์ชนรถจักรยานยนต์/รถสามล้อ','รถยนต์ชนวัตถุ/สิ่งของ','รถยนต์ชนคน'
                                       ,'รถยนต์ชนรถไฟ','รถยนต์ชนสัตว์/รถลากจูงด้วยสัตว์','อื่นๆ']">
                     <li>${it.radio}<span><g:message code="${it.label}"/>
-                        <g:if test="${it.label == 'อื่นๆ'}">
-                            <g:field type="text" name="accidentTypeOther" id="accidentTypeOther"
-                                     placeholder="ระบุ" maxlength="50"/>
-                        </g:if>
+                    <g:if test="${it.label == 'อื่นๆ'}">
+                        <g:field type="text" name="accidentTypeOther" id="accidentTypeOther"
+                                 placeholder="ระบุ" maxlength="50"/>
+                    </g:if>
                     </span></li>
                 </g:radioGroup>
             </ul>
