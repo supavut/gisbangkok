@@ -1,22 +1,27 @@
 package com.accident
 
+import com.accident.config.person.CarType
+import com.accident.config.person.PersonDrivingLicense
+import com.accident.config.person.PersonDrug
+import com.accident.config.person.PersonEquipment
+import com.accident.config.person.PersonGender
+import com.accident.config.person.PersonInjury
 
 
 class Person {
 
-
-    String carType
+    CarType carType
     String carRegistration
     String carBrand
     String name
     String lastName
     Integer age
-    String gender
-    String equipment
-    String drug
+    PersonGender gender
+    PersonEquipment equipment
+    PersonDrug drug
     String identificationCard
-    String drivingLicense
-    String injury
+    PersonDrivingLicense drivingLicense
+    PersonInjury injury
 
     static belongsTo = [accident: Accident]
     static hasMany = [passengers: Passenger]

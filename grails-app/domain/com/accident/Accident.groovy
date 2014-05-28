@@ -19,6 +19,8 @@ import com.accident.config.UTurn
 import com.accident.config.Weather
 
 class Accident {
+    String bookPage
+    String caseId
     Date dateAccident
     Double lat
     Double lon
@@ -33,15 +35,21 @@ class Accident {
     RoadType roadType
     Horizontal horizontal
     Intersection intersection
+    String intersectionDetail
     UTurn uTurn
     RoadTypeSpecial roadTypeSpecial
     RoadHumidity roadHumidity
     RoadSurface roadSurface
+    String roadSurfaceDetail
     Weather weather
+    String weatherDetail
     Light light
     Reason reason
+    String reasonDetail
     AccidentType accidentType
+    String accidentTypeDetail
     CrashPattern crashPattern
+    String crashPatternDetail
     String eventDescription
     Integer isComplete
 
@@ -50,6 +58,8 @@ class Accident {
     static belongsTo = [damageCost: DamageCost]
 
     static constraints = {
+        bookPage nullable: false
+        caseId nullable: false
         specificArea nullable: true
         roadAtCurrentTime nullable: true
         roadAtCurrentTimeDetail nullable: true
@@ -59,15 +69,21 @@ class Accident {
         roadType nullable: true
         horizontal nullable: true
         intersection nullable: true
+        intersectionDetail nullable: true
         uTurn nullable: true
         roadTypeSpecial nullable: true
         roadHumidity nullable: true
         roadSurface nullable: true
+        roadSurfaceDetail nullable: true
         weather nullable: true
+        weatherDetail nullable: true
         light nullable: true
         reason nullable: true
+        reasonDetail nullable: true
         accidentType nullable: true
+        accidentTypeDetail nullable: true
         crashPattern nullable: true
+        crashPatternDetail nullable: true
         eventDescription nullable: true
         damageCost nullable: true
     }
