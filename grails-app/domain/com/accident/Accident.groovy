@@ -1,6 +1,8 @@
 package com.accident
 
 class Accident {
+    String bookPage
+    String caseId
     Date dateAccident
     Double lat
     Double lon

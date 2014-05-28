@@ -270,7 +270,12 @@ class MainController {
         if(params.editAction == null){
             def selectId = Integer.parseInt(params.selectId)
             def selectAccident =  Accident.get(selectId);
-            render(view: 'edit1',model:[accident:selectAccident])
+            if(params.editView == '1'){
+                render(view: 'edit1',model:[accident:selectAccident])
+            }else{
+                render(view: 'edit2',model:[accident:selectAccident])
+            }
+
         }else  if(params.editAction == '1'){
             def accidentId = Integer.parseInt(params.accidentId)
             def selectAccident =  Accident.get(accidentId);

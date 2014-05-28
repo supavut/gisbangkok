@@ -50,6 +50,9 @@
             }
 
         });
+        var mode = '0';
+        var currentPoint;
+        var newPoint = 1;
         function init() {
             map = new OpenLayers.Map("map-canvas");
 
@@ -57,7 +60,9 @@
             //map.setOptions({restrictedExtent: new OpenLayers.Bounds(8, 44.5, 19, 50)});
 
             //create based layer
-            var gmap = new OpenLayers.Layer.Google("Google Streets", {numZoomLevels: 20});
+            var gmap = new OpenLayers.Layer.Google("Google Streets", {numZoomLevels: 20,sphericalMercator: true});
+
+
 
             //create vector layer
             vector = new OpenLayers.Layer.Vector("Vectors", {
@@ -69,12 +74,17 @@
                         }
                     }
             );
+
+
             map.addLayers([gmap, vector]);
+            //gmap.mapObject.addOverlay(new GStreetviewOverlay());
+
+
 
             //set map center
             var BangkokPosition = new OpenLayers.LonLat("11193299.296468", "1545835.5748853");
             map.setCenter(BangkokPosition, 12);
-
+            currentPoint = BangkokPosition;
             //map.addControl(new OpenLayers.Control.LayerSwitcher());
 
             //add click event
@@ -84,15 +94,59 @@
 
             createTime();
 
-            $(function () {
-                $("#datepicker").datepicker({
-                    changeMonth: true,
-                    changeYear: true
-                });
-            });
+
 
             geocoder = new google.maps.Geocoder();
         }
+
+        $(function () {
+            $("#datepicker").datepicker({
+                changeMonth: true,
+                changeYear: true
+            });
+        });
+
+        function toggleStreetView() {
+            if(mode == 0){
+                var projWGS84 = new OpenLayers.Projection("EPSG:4326");
+                var proj900913 = new OpenLayers.Projection("EPSG:900913");
+                var point2
+                if(newPoint==1){
+                    point2 =  currentPoint.transform(proj900913, projWGS84);
+                    newPoint=0;
+                }else{
+                    point2=currentPoint;
+                }
+                //console.log(point2.lat);
+                //console.log(point2.lon);
+                document.getElementById("map-canvas").style.display='none';
+                document.getElementById("street-view").style.display='block';
+                var fenway = new google.maps.LatLng(point2.lat,point2.lon);
+                var panoOptions = {
+                    position: fenway,
+                    addressControlOptions: {
+                        position: google.maps.ControlPosition.BOTTOM
+                    },
+                    linksControl: false,
+                    panControl: false,
+                    zoomControlOptions: {
+                        style: google.maps.ZoomControlStyle.SMALL
+                    },
+                    enableCloseButton: false,
+                    visible:true
+                };
+
+                var panorama = new google.maps.StreetViewPanorama(
+                        document.getElementById("street-view"), panoOptions);
+                mode = 1;
+            }else{
+                document.getElementById("map-canvas").style.display='block';
+                document.getElementById("street-view").style.display='none';
+                mode = 0;
+            }
+
+        }
+
         function getAddress() {
 
             var addr = document.getElementById("address").value;
@@ -104,6 +158,7 @@
                 var lat = results[0].geometry.location.lat();
                 var lon = results[0].geometry.location.lng();
                 SearchPosition = new OpenLayers.LonLat(lon, lat);
+
                 map.setCenter(SearchPosition.transform(
                         new OpenLayers.Projection("EPSG:4326"),
                         map.getProjectionObject()
@@ -113,6 +168,8 @@
         function drawPoint(lat, lon) {
             vector.removeAllFeatures();
             var p1 = new OpenLayers.Geometry.Point(parseFloat(lon), parseFloat(lat));
+            currentPoint =  new OpenLayers.LonLat(parseFloat(lon),  parseFloat(lat));
+            newPoint = 1;
             var point = new OpenLayers.Feature.Vector(p1);
             vector.addFeatures(point);
             document.getElementById("lat").value = lat;
@@ -191,8 +248,21 @@
 <div id="sec1" style="display:block">
     <div class="extra container">
         <h2 align="middle">Section ข้อมูลพื้นฐาน</h2>
+        <div>
+            <input id="address" value="" type="text" size="200" placeholder="ค้นหาสถานที่"/>
+            <a href="" onclick="getAddress();
+            return false" class="button2">Search</a>
+            <br/>
+        </div>
+        <div id="all-map" style="position: relative;width: 100%;height: 500px;margin: 5px 0px;">
+            <input type="button" value="Toggle Street View" style="position: absolute;z-index: 2;right: 0;" onclick="toggleStreetView();" />
+            <div id="map-canvas">
 
-        <div class="tbox1">
+            </div>
+            <div id="street-view" style="height: 100%;display:none">
+            </div>
+        </div>
+        <div class="box">
             <table>
 
                 <tr>
@@ -227,13 +297,7 @@
                 <tr>
                     <td colspan="3"><h4>พิกัดจีพีเอส</h4></td>
                 </tr>
-                <tr>
-                    <td colspan="3">
-                        <input id="address" value="" type="text" size="30" placeholder="ค้นหาสถานที่"/>
-                        <a href="" onclick="getAddress();
-                        return false" class="button2">Search</a>
-                    </td>
-                </tr>
+
                 <tr>
                     <td>
                         ละติจูด
@@ -263,10 +327,6 @@
                 </tr>
 
             </table>
-        </div>
-
-        <div class="tbox2">
-            <div id="map-canvas"></div>
         </div>
     </div>
 </div>

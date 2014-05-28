@@ -67,8 +67,8 @@
                     <td>ขับรถเร็วเกินอัตราที่กำหนด</td>
                     <td>ถนน</td>
                     <td>
-                        <a href="${createLink(controller :'main',action: 'edit',params: [selectId:accident.id])}" >EDIT</a>
-                        <a href="${createLink(controller :'main',action: 'edit',params: [selectId:accident.id])}" >EDIT MAP</a>
+                        <a href="${createLink(controller :'main',action: 'edit',params: [editView:1,selectId:accident.id])}" >EDIT MAP</a>
+                        <a href="${createLink(controller :'main',action: 'edit',params: [editView:2,selectId:accident.id])}" >EDIT</a>
                     </td>
                 </tr>
 
