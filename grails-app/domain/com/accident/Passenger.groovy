@@ -1,12 +1,17 @@
 package com.accident
 
+import com.accident.config.passenger.PassengerEquipment
+import com.accident.config.passenger.PassengerGender
+import com.accident.config.passenger.PassengerInjury
+import com.accident.config.passenger.SeatPosition
+
 class Passenger {
 
-    String seatPosition
+    SeatPosition seatPosition
     Integer passengerAge
-    String passengerGender
-    String passengerEquipment
-    String passengerInjury
+    PassengerGender passengerGender
+    PassengerEquipment passengerEquipment
+    PassengerInjury passengerInjury
 
     static belongsTo = [person: Person]
 
@@ -16,5 +21,8 @@ class Passenger {
         passengerGender nullable: true
         passengerEquipment nullable: true
         passengerInjury nullable: true
+    }
+    static mapping = {
+        sort id: "asc" // or "asc"
     }
 }

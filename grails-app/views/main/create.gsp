@@ -221,9 +221,6 @@
                 document.getElementById("sec4").style.display = 'none';
                 document.getElementById("sec6").style.display = 'none';
                 document.getElementById("sec7").style.display = 'none';
-                document.getElementById("sec8").style.display = 'none';
-                document.getElementById("sec8_1").style.display = 'none';
-                document.getElementById("sec8_2").style.display = 'none';
                 document.getElementById("sec9").style.display = 'none';
             } else {
                 document.getElementById("sec2").style.display = 'block';
@@ -231,9 +228,6 @@
                 document.getElementById("sec4").style.display = 'block';
                 document.getElementById("sec6").style.display = 'block';
                 document.getElementById("sec7").style.display = 'block';
-                document.getElementById("sec8").style.display = 'block';
-                document.getElementById("sec8_1").style.display = 'block';
-                document.getElementById("sec8_2").style.display = 'block';
                 document.getElementById("sec9").style.display = 'block';
             }
         }
@@ -262,7 +256,7 @@
             <div id="street-view" style="height: 100%;display:none">
             </div>
         </div>
-        <div class="box">
+        <div class="fullbox">
             <table>
 
                 <tr>
@@ -289,6 +283,16 @@
                     <td><h4>ชื่อสถานีตำรวจนครบาล</h4></td>
                     <td colspan="2"><g:field type="text" name="policeStation" required="required"
                                              id="policeStation"/></td>
+                </tr>
+                <tr>
+                    <td><h4>เล่มที่/หน้า</h4></td>
+                    <td colspan="2"><g:field type="text" name="bookPage" required="required"
+                                             id="bookPage"/></td>
+                </tr>
+                <tr>
+                    <td><h4>เลขคดี</h4></td>
+                    <td colspan="2"><g:field type="text" name="caseId" required="required"
+                                             id="caseId"/></td>
                 </tr>
                 <tr>
                     <td><h4>ชื่อถนน</h4></td>
@@ -339,18 +343,18 @@
             <h4>บริเวณเฉพาะที่เกิดเหตุ</h4>
             <ul name="sec2">
                 <g:radioGroup name="specificArea"
-                              values="['ทางทั่วไป', 'ทางหลัก', 'ทางขนาน', 'ทางเข้าหรือทางออกหลัก', 'ไม่ระบุ']"
-                              labels="['ทางทั่วไป', 'ทางหลัก', 'ทางขนาน', 'ทางเข้าหรือทางออกหลัก', 'ไม่ระบุ']">
+                              values="${specificArea.id}"
+                              labels="${specificArea.name}">
                     <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
                 </g:radioGroup>
             </ul>
             <h4>ลักษณะถนนขณะเกิดเหตุ</h4>
             <ul>
-                <g:radioGroup name="roadAtCurrentTime" values="['ใช้งานปกติ', 'มีงานบำรุงรักษา', 'มีงานก่อสร้าง', '0']"
-                              labels="['ใช้งานปกติ', 'มีงานบำรุงรักษา', 'มีงานก่อสร้าง', 'อื่นๆ']">
+                <g:radioGroup name="roadAtCurrentTime" values="${roadAtCurrentTime.id}"
+                              labels="${roadAtCurrentTime.name}">
                     <li>${it.radio}<span><g:message code="${it.label}"/>
                     <g:if test="${it.label == 'อื่นๆ'}">
-                        <g:field type="text" name="roadAtCurrentTimeOther" id="roadAtCurrentTimeOther"
+                        <g:field type="text" name="roadAtCurrentTimeDetail" id="roadAtCurrentTimeDetail"
                                  placeholder="ระบุ" maxlength="50"/>
                     </g:if>
                     </span></li>
@@ -358,8 +362,8 @@
             </ul>
             <h4>จำนวนช่องจราจร</h4>
             <ul>
-                <g:radioGroup name="roadLane" values="['2', '4', '6', '8 หรือมากกว่า']"
-                              labels="['2', '4', '6', '8 หรือมากกว่า']">
+                <g:radioGroup name="roadLane" values="${roadLane.id}"
+                              labels="${roadLane.name}">
                     <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
                 </g:radioGroup>
             </ul>
@@ -368,23 +372,23 @@
         <div class="boxB">
             <h4>ทิศทาง</h4>
             <ul>
-                <g:radioGroup name="roadDirection" values="['มุ่งเหนือ', 'มุ่งใต้', 'มุ่งตะวันออก', 'มุ่งตะวันตก']"
-                              labels="['มุ่งเหนือ', 'มุ่งใต้', 'มุ่งตะวันออก', 'มุ่งตะวันตก']">
+                <g:radioGroup name="roadDirection" values="${roadDirection.id}"
+                              labels="${roadDirection.name}">
                     <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
                 </g:radioGroup>
             </ul>
             <h4>ประเภทเกาะกลาง</h4>
             <ul>
                 <g:radioGroup name="islandType"
-                              values="['ไม่มีเกาะกลาง', 'เกาะกลางแบบสี', 'เกาะกลางแบบดินถมยกขึ้น', 'เกาะกลางแบบร่อง', 'มีอุปกรณ์กั้นกลางถนน', 'ไม่ระบุ']"
-                              labels="['ไม่มีเกาะกลาง', 'เกาะกลางแบบสี', 'เกาะกลางแบบดินถมยกขึ้น', 'เกาะกลางแบบร่อง', 'มีอุปกรณ์กั้นกลางถนน', 'ไม่ระบุ']">
+                              values="${islandType.id}"
+                              labels="${islandType.name}">
                     <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
                 </g:radioGroup>
             </ul>
             <h4>ชนิดผิวจราจร</h4>
             <ul>
-                <g:radioGroup name="roadType" values="['คอนกรีต', 'ลาดยาง', 'ลูกรัง']"
-                              labels="['คอนกรีต', 'ลาดยาง', 'ลูกรัง']">
+                <g:radioGroup name="roadType" values="${roadType.id}"
+                              labels="${roadType.name}">
                     <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
                 </g:radioGroup>
             </ul>
@@ -404,19 +408,19 @@
             <div>
                 <h4>แนวราบ</h4>
                 <ul>
-                    <g:radioGroup name="horizontal" values="['ทางตรง', 'ทางโค้งปกติ', 'ทางโค้งหักศอก']"
-                                  labels="['ทางตรง', 'ทางโค้งปกติ', 'ทางโค้งหักศอก']">
+                    <g:radioGroup name="horizontal" values="${horizontal.id}"
+                                  labels="${horizontal.name}">
                         <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
                     </g:radioGroup>
                 </ul>
                 <h4>ทางแยก</h4>
                 <ul>
                     <g:radioGroup name="intersection"
-                                  values="['ไม่ได้เกิดเหตุที่แยก', 'ทางแยกรูปตัว +', 'ทางแยกรูปตัว T', 'ทางแยกรูปตัว Y', 'วงเวียน', 'ทางแยกต่างระดับ/Ramps','ทางเเยกเข้าซอย/ทางเชื่อม', '0']"
-                                  labels="['ไม่ได้เกิดเหตุที่แยก', 'ทางแยกรูปตัว +', 'ทางแยกรูปตัว T', 'ทางแยกรูปตัว Y', 'วงเวียน', 'ทางแยกต่างระดับ/Ramps','ทางเเยกเข้าซอย/ทางเชื่อม', 'อื่นๆ']">
+                                  values="${intersection.id}"
+                                  labels="${intersection.name}">
                         <li>${it.radio}<span><g:message code="${it.label}"/>
                             <g:if test="${it.label == 'อื่นๆ'}">
-                                <g:field type="text" name="intersectionOther" id="intersectionOther"
+                                <g:field type="text" name="intersectionDetail" id="intersectionDetail"
                                          placeholder="ระบุ" maxlength="50"/>
                             </g:if>
                         </span></li>
@@ -429,8 +433,8 @@
             <h4>จุดยูเทิร์น</h4>
             <ul>
 
-                <g:radioGroup name="uTurn" values="['ไม่ได้เกิดเหตุที่จุดยูเทิร์น', 'จุดยูเทิร์นมีช่องลดความเร็ว', 'จุดยูเทิร์นไม่มีช่องลดความเร็ว']"
-                              labels="['ไม่ได้เกิดเหตุที่จุดยูเทิร์น', 'จุดยูเทิร์นมีช่องลดความเร็ว', 'จุดยูเทิร์นไม่มีช่องลดความเร็ว']">
+                <g:radioGroup name="uTurn" values="${uTurn.id}"
+                              labels="${uTurn.name}">
                     <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
                 </g:radioGroup>
             </ul>
@@ -440,10 +444,8 @@
         <div class="boxC">
             <h4>บริเวณเฉพาะอื่นๆ</h4>
             <ul>
-                <g:radioGroup name="roadTypeSpecial" values="['ทางรถจักรยานยนต์', 'ทางจักรยาน', 'ทางคนเดินเท้า',
-                        'ทางม้าลาย','สะพาน','ทางลอด','ทางรถไฟตัดผ่าน','จุดกลับรถต่างระดับ','มีการเปลี่ยนความกว้างของช่องจราจร','บริเวณที่เกิดเหตุไม่มีลักษณะเฉพาะตามที่กล่าวมา']"
-                              labels="['ทางรถจักรยานยนต์', 'ทางจักรยาน', 'ทางคนเดินเท้า',
-                                      'ทางม้าลาย','สะพาน','ทางลอด','ทางรถไฟตัดผ่าน','จุดกลับรถต่างระดับ','มีการเปลี่ยนความกว้างของช่องจราจร','บริเวณที่เกิดเหตุไม่มีลักษณะเฉพาะตามที่กล่าวมา']">
+                <g:radioGroup name="roadTypeSpecial" values="${roadTypeSpecial.id}"
+                              labels="${roadTypeSpecial.name}" >
                     <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
                 </g:radioGroup>
             </ul>
@@ -456,15 +458,11 @@
         <div class="boxA" style="height: 700px">
             <h2 align="middle">Section ลักษณะการเกิดอุบัติเหตุ</h2>
             <ul>
-                <g:radioGroup name="accidentType" values="['รถจักรยานยนต์ชนรถยนต์', 'รถจักรยานยนต์ชนรถจัการยาน/รถสามล้อ', 'รถจักรยานยนต์ชนรถจักรยานพลิกคว่ำ/ตกถนน'
-                        ,'รถจักรยานยนต์ชนคน','รถจักรยานยนต์ชนวัตถุ/สิ่งของ','รถยนต์ชนกัน','รถยนต์พลิกคว่ำ/ตกถนน','รถยนต์ชนรถจักรยานยนต์/รถสามล้อ','รถยนต์ชนวัตถุ/สิ่งของ','รถยนต์ชนคน'
-                        ,'รถยนต์ชนรถไฟ','รถยนต์ชนสัตว์/รถลากจูงด้วยสัตว์','0']"
-                              labels="['รถจักรยานยนต์ชนรถยนต์', 'รถจักรยานยนต์ชนรถจัการยาน/รถสามล้อ', 'รถจักรยานยนต์ชนรถจักรยานพลิกคว่ำ/ตกถนน'
-                                      ,'รถจักรยานยนต์ชนคน','รถจักรยานยนต์ชนวัตถุ/สิ่งของ','รถยนต์ชนกัน','รถยนต์พลิกคว่ำ/ตกถนน','รถยนต์ชนรถจักรยานยนต์/รถสามล้อ','รถยนต์ชนวัตถุ/สิ่งของ','รถยนต์ชนคน'
-                                      ,'รถยนต์ชนรถไฟ','รถยนต์ชนสัตว์/รถลากจูงด้วยสัตว์','อื่นๆ']">
+                <g:radioGroup name="accidentType" values="${accidentType.id}"
+                              labels="${accidentType.name}">
                     <li>${it.radio}<span><g:message code="${it.label}"/>
                         <g:if test="${it.label == 'อื่นๆ'}">
-                            <g:field type="text" name="accidentTypeOther" id="accidentTypeOther"
+                            <g:field type="text" name="accidentTypeDetail" id="accidentTypeDetail"
                                      placeholder="ระบุ" maxlength="50"/>
                         </g:if>
                     </span></li>
@@ -476,19 +474,19 @@
             <h2 align="middle">Section ทัศนวิสัยและสภาพแวดล้อม</h2>
             <h4>ผิวทาง</h4>
             <ul>
-                <g:radioGroup name="roadHumidity" values="['เปียก', 'แห้ง']"
-                              labels="['เปียก', 'แห้ง']">
+                <g:radioGroup name="roadHumidity" values="${roadHumidity.id}"
+                              labels="${roadHumidity.name}">
                     <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
                 </g:radioGroup>
             </ul>
             <h4>สภาพผิวทาง</h4>
             <ul>
                 <g:radioGroup name="roadSurface"
-                              values="['ดี', 'เป็นคลื่น/หลุม/บ่อ', 'สกปรก', 'ทางแยกรูปตัว Y', '0']"
-                              labels="['ดี', 'เป็นคลื่น/หลุม/บ่อ', 'สกปรก', 'ทางแยกรูปตัว Y', 'อื่นๆ']">
+                              values="${roadSurface.id}"
+                              labels="${roadSurface.name}">
                     <li>${it.radio}<span><g:message code="${it.label}"/>
                     <g:if test="${it.label == 'อื่นๆ'}">
-                        <g:field type="text" name="roadSurfaceOther" id="roadSurfaceOther"
+                        <g:field type="text" name="roadSurfaceDetail" id="roadSurfaceDetail"
                                  placeholder="ระบุ" maxlength="50"/>
                     </g:if>
                     </span></li>
@@ -497,11 +495,11 @@
             <h4>สภาพภูมิอากาศ</h4>
             <ul>
                 <g:radioGroup name="weather"
-                              values="['แจ่มใส', 'มีควันฝุ่น', 'มีหมอก', 'ฝนตก', '0']"
-                              labels="['แจ่มใส', 'มีควันฝุ่น', 'มีหมอก', 'ฝนตก', 'อื่นๆ']">
+                              values="${weather.id}"
+                              labels="${weather.name}">
                     <li>${it.radio}<span><g:message code="${it.label}"/>
                     <g:if test="${it.label == 'อื่นๆ'}">
-                        <g:field type="text" name="weatherOther" id="weatherOther"
+                        <g:field type="text" name="weatherDetail" id="weatherDetail"
                                  placeholder="ระบุ" maxlength="50"/>
                     </g:if>
                     </span></li>
@@ -510,524 +508,260 @@
 
             <h4>แสงสว่าง</h4>
             <ul>
-                <g:radioGroup name="light" values="['กลางวัน', 'กลางคืน-มีเเสงสว่างเพียงพอ','กลางคืน-ไม่มีเเสงสว่างเพียงพอ']"
-                              labels="['กลางวัน', 'กลางคืน-มีเเสงสว่างเพียงพอ','กลางคืน-ไม่มีเเสงสว่างเพียงพอ']">
+                <g:radioGroup name="light" values="${light.id}"
+                              labels="${light.name}">
                     <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
                 </g:radioGroup>
             </ul>
         </div>
 
         <div class="boxC" style="height: 700px">
-
-
         </div>
     </div>
 </div>
 
-<div id="sec6" style="display:none">
-    <div class="extra container">
+<div id="sec6" style="display:none" >
+    <div id="contentSec6" class="extra container">
         <h2 align="middle">Section ข้อมูลเกี่ยวกับผู้ขับขี่หรือผู้ใช้ถนน</h2>
+        <script type="text/javascript">
+            var masterElement;
+            var masterElementPassenger;
+            var personCount = 1;
+            $( document ).ready(function() {
+                masterElement = $( "#person" ).clone();
+                masterElementPassenger = $( "#passenger" ).clone();
+            });
 
-        <div class="boxA" style="height: 1250px">
-            <h4>ประเภทผู้ใช้ถนน คันที่ 1</h4>
-            <ul>
-                <g:radioGroup name="carType1" values="['ไม่มี', 'รถจักรยาน','รถจักรยานยนต์',
-                        'รถสามล้อ', 'รถสามล้อเครื่อง','รถยนต์นั่ง',
-                        'รถตู้', 'รถปิคอัพโดยสาร','รถปิคอัพบรรทุก 4 ล้อ',
-                        'รถโดยสารขนาดใหญ่', 'รถบรรทุก 6 ล้อ','รถบรรทุกมากกว่า 6 ล้อ ไม่เกิน 10 ล้อ',
-                        'รถบรรทุกมากกว่า 10 ล้อ', 'รถอีแต๋น','รถอื่นๆ','คนเดินเท้า']"
-                              labels="['ไม่มี', 'รถจักรยาน','รถจักรยานยนต์',
-                                      'รถสามล้อ', 'รถสามล้อเครื่อง','รถยนต์นั่ง',
-                                      'รถตู้', 'รถปิคอัพโดยสาร','รถปิคอัพบรรทุก 4 ล้อ',
-                                      'รถโดยสารขนาดใหญ่', 'รถบรรทุก 6 ล้อ','รถบรรทุกมากกว่า 6 ล้อ ไม่เกิน 10 ล้อ',
-                                      'รถบรรทุกมากกว่า 10 ล้อ', 'รถอีแต๋น','รถอื่นๆ','คนเดินเท้า']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-            <h4>หมายเลขทะเบียนรถ</h4>
-            <g:field type="text" name="carRegistrationA1" id="carRegistrationA1"  size="2" maxlength="2"/>
-            <g:field type="text" name="carRegistrationB1" id="carRegistrationB1"  size="4" maxlength="4" onkeypress="return isNumber(event);"/>
-            <h4>ยี่ห้อรถ</h4>
-            <g:field type="text" name="carBrand1" id="carBrand1"  value="" placeholder="ระบุ" size="20" maxlength="20"/>
-            <h4>ชื่อผู้ขับขี่หรือผู้ใช้ถนน</h4>
-            <g:field type="text" name="name1" id="name1"  value="" maxlength="50"/>
-            <h4>นามสกุลผู้ขับขี่หรือผู้ใช้ถนน</h4>
-            <g:field type="text" name="lastName1" id="lastName1"  value="" maxlength="50"/>
-            <h4>หมายเลขประจำตัวประชาชน</h4>
-            <g:field type="text" name="identificationCard1" id="identificationCard1" value="" placeholder="ระบุ" size="20" maxlength="13"
-                     onkeypress="return isNumber(event);"/>
-            <h4>หมายเลขบัตรใบขับขี่</h4>
-            <g:field type="text" name="drivingLicense1" id="drivingLicense1" value="" placeholder="ระบุ" size="20" maxlength="13"
-                     onkeypress="return isNumber(event);"/>
-            <h4>อายุผู้ขับขี่หรือผู้ใช้ถนน (ปี)</h4>
-            <g:field type="text" name="age1" id="age1"  value="" placeholder="ระบุ" size="2"
-                     maxlength="2" onkeypress="return isNumber(event);" />
-            <h4>เพศผู้ขับขี่หรือผู้ใช้ถนน</h4>
-            <g:radioGroup name="gender1" values="['ญ', 'ช']"
-                          labels="['หญิง', 'ชาย']">
-                ${it.radio}<span><g:message code="${it.label}"/></span>
-            </g:radioGroup>
-            <h4>การใช้อุปกรณ์นิรภัยของผู้ขับขี่</h4>
-            <g:radioGroup name="equipment1" values="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']"
-                          labels="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']">
-                ${it.radio}<span><g:message code="${it.label}"/></span>
-            </g:radioGroup>
-            <h4>การเสพของมึนเมาหรือยา</h4>
-            <g:radioGroup name="drug1" values="['มี', 'ไม่มี','ไม่ระบุ']"
-                          labels="['มี', 'ไม่มี','ไม่ระบุ']">
-                ${it.radio}<span><g:message code="${it.label}"/></span>
-            </g:radioGroup>
-            <h4>การบาดเจ็บ</h4>
-            <ul>
-                <g:radioGroup name="injury1" values="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']"
-                              labels="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-        </div>
+            function addPerson(){
+                personCount = personCount+1;
+                $('#countPerson').val(personCount);
+                var $selectElement = masterElement.clone();
+                $selectElement.find( '.personNumText').html(personCount);
+                $selectElement.find('#countPassenger_1').attr('id',"countPassenger_"+personCount);
+                $selectElement.find('#allPassenger_1').attr('id',"allPassenger_"+personCount);
+                $selectElement.find('#addPassenger').attr('onclick',"addPassengerElement("+personCount+")");
 
-        <div class="boxB" style="height: 1250px">
-            <h4>ประเภทผู้ใช้ถนน คันที่ 2</h4>
-            <ul>
-                <g:radioGroup name="carType2" values="['ไม่มี', 'รถจักรยาน','รถจักรยานยนต์',
-                        'รถสามล้อ', 'รถสามล้อเครื่อง','รถยนต์นั่ง',
-                        'รถตู้', 'รถปิคอัพโดยสาร','รถปิคอัพบรรทุก 4 ล้อ',
-                        'รถโดยสารขนาดใหญ่', 'รถบรรทุก 6 ล้อ','รถบรรทุกมากกว่า 6 ล้อ ไม่เกิน 10 ล้อ',
-                        'รถบรรทุกมากกว่า 10 ล้อ', 'รถอีแต๋น','รถอื่นๆ','คนเดินเท้า']"
-                              labels="['ไม่มี', 'รถจักรยาน','รถจักรยานยนต์',
-                                      'รถสามล้อ', 'รถสามล้อเครื่อง','รถยนต์นั่ง',
-                                      'รถตู้', 'รถปิคอัพโดยสาร','รถปิคอัพบรรทุก 4 ล้อ',
-                                      'รถโดยสารขนาดใหญ่', 'รถบรรทุก 6 ล้อ','รถบรรทุกมากกว่า 6 ล้อ ไม่เกิน 10 ล้อ',
-                                      'รถบรรทุกมากกว่า 10 ล้อ', 'รถอีแต๋น','รถอื่นๆ','คนเดินเท้า']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-            <h4>หมายเลขทะเบียนรถ</h4>
-            <g:field type="text" name="carRegistrationA2" id="carRegistrationA2"  size="2" maxlength="2"/>
-            <g:field type="text" name="carRegistrationB2" id="carRegistrationB2"  size="4" maxlength="4" onkeypress="return isNumber(event);"/>
-            <h4>ยี่ห้อรถ</h4>
-            <g:field type="text" name="carBrand2" id="carBrand2"  value="" placeholder="ระบุ" size="20" maxlength="20"/>
-            <h4>ชื่อผู้ขับขี่หรือผู้ใช้ถนน</h4>
-            <g:field type="text" name="name2" id="name2"  value="" maxlength="50"/>
-            <h4>นามสกุลผู้ขับขี่หรือผู้ใช้ถนน</h4>
-            <g:field type="text" name="lastName2" id="lastName2"  value="" maxlength="50"/>
-            <h4>หมายเลขประจำตัวประชาชน</h4>
-            <g:field type="text" name="identificationCard2" id="identificationCard2" value="" placeholder="ระบุ" size="20" maxlength="13"
-                     onkeypress="return isNumber(event);"/>
-            <h4>หมายเลขบัตรใบขับขี่</h4>
-            <g:field type="text" name="drivingLicense2" id="drivingLicense2" value="" placeholder="ระบุ" size="20" maxlength="13"
-                     onkeypress="return isNumber(event);"/>
-            <h4>อายุผู้ขับขี่หรือผู้ใช้ถนน (ปี)</h4>
-            <g:field type="text" name="age2" id="age2"  value="" placeholder="ระบุ" size="2"
-                     maxlength="2" onkeypress="return isNumber(event);" />
-            <h4>เพศผู้ขับขี่หรือผู้ใช้ถนน</h4>
-            <g:radioGroup name="gender2" values="['ญ', 'ช']"
-                          labels="['หญิง', 'ชาย']">
-                ${it.radio}<span><g:message code="${it.label}"/></span>
-            </g:radioGroup>
-            <h4>การใช้อุปกรณ์นิรภัยของผู้ขับขี่</h4>
-            <g:radioGroup name="equipment2" values="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']"
-                          labels="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']">
-                ${it.radio}<span><g:message code="${it.label}"/></span>
-            </g:radioGroup>
-            <h4>การเสพของมึนเมาหรือยา</h4>
-            <g:radioGroup name="drug2" values="['มี', 'ไม่มี','ไม่ระบุ']"
-                          labels="['มี', 'ไม่มี','ไม่ระบุ']">
-                ${it.radio}<span><g:message code="${it.label}"/></span>
-            </g:radioGroup>
-            <h4>การบาดเจ็บ</h4>
-            <ul>
-                <g:radioGroup name="injury2" values="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']"
-                              labels="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-        </div>
+                $selectElement.find('#carType').attr('name',"carType_"+personCount);
 
-        <div class="boxC" style="height: 1250px">
-            <h4>ประเภทผู้ใช้ถนน คันที่ 3</h4>
-            <ul>
-                <g:radioGroup name="carType3" values="['ไม่มี', 'รถจักรยาน','รถจักรยานยนต์',
-                        'รถสามล้อ', 'รถสามล้อเครื่อง','รถยนต์นั่ง',
-                        'รถตู้', 'รถปิคอัพโดยสาร','รถปิคอัพบรรทุก 4 ล้อ',
-                        'รถโดยสารขนาดใหญ่', 'รถบรรทุก 6 ล้อ','รถบรรทุกมากกว่า 6 ล้อ ไม่เกิน 10 ล้อ',
-                        'รถบรรทุกมากกว่า 10 ล้อ', 'รถอีแต๋น','รถอื่นๆ','คนเดินเท้า']"
-                              labels="['ไม่มี', 'รถจักรยาน','รถจักรยานยนต์',
-                                      'รถสามล้อ', 'รถสามล้อเครื่อง','รถยนต์นั่ง',
-                                      'รถตู้', 'รถปิคอัพโดยสาร','รถปิคอัพบรรทุก 4 ล้อ',
-                                      'รถโดยสารขนาดใหญ่', 'รถบรรทุก 6 ล้อ','รถบรรทุกมากกว่า 6 ล้อ ไม่เกิน 10 ล้อ',
-                                      'รถบรรทุกมากกว่า 10 ล้อ', 'รถอีแต๋น','รถอื่นๆ','คนเดินเท้า']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-            <h4>หมายเลขทะเบียนรถ</h4>
-            <g:field type="text" name="carRegistrationA3" id="carRegistrationA3"  size="2" maxlength="2"/>
-            <g:field type="text" name="carRegistrationB3" id="carRegistrationB3"  size="4" maxlength="4" onkeypress="return isNumber(event);"/>
-            <h4>ยี่ห้อรถ</h4>
-            <g:field type="text" name="carBrand3" id="carBrand3"  value="" placeholder="ระบุ" size="20" maxlength="20"/>
-            <h4>ชื่อผู้ขับขี่หรือผู้ใช้ถนน</h4>
-            <g:field type="text" name="name3" id="name3"  value="" maxlength="50"/>
-            <h4>นามสกุลผู้ขับขี่หรือผู้ใช้ถนน</h4>
-            <g:field type="text" name="lastName3" id="lastName3"  value="" maxlength="50"/>
-            <h4>หมายเลขประจำตัวประชาชน</h4>
-            <g:field type="text" name="identificationCard3" id="identificationCard3" value="" placeholder="ระบุ" size="20" maxlength="13"
-                     onkeypress="return isNumber(event);"/>
-            <h4>หมายเลขบัตรใบขับขี่</h4>
-            <g:field type="text" name="drivingLicense3" id="drivingLicense3" value="" placeholder="ระบุ" size="20" maxlength="13"
-                     onkeypress="return isNumber(event);"/>
-            <h4>อายุผู้ขับขี่หรือผู้ใช้ถนน (ปี)</h4>
-            <g:field type="text" name="age3" id="age3"  value="" placeholder="ระบุ" size="2"
-                     maxlength="2" onkeypress="return isNumber(event);" />
-            <h4>เพศผู้ขับขี่หรือผู้ใช้ถนน</h4>
-            <g:radioGroup name="gender3" values="['ญ', 'ช']"
-                          labels="['หญิง', 'ชาย']">
-                ${it.radio}<span><g:message code="${it.label}"/></span>
-            </g:radioGroup>
-            <h4>การใช้อุปกรณ์นิรภัยของผู้ขับขี่</h4>
-            <g:radioGroup name="equipment3" values="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']"
-                          labels="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']">
-                ${it.radio}<span><g:message code="${it.label}"/></span>
-            </g:radioGroup>
-            <h4>การเสพของมึนเมาหรือยา</h4>
-            <g:radioGroup name="drug3" values="['มี', 'ไม่มี','ไม่ระบุ']"
-                          labels="['มี', 'ไม่มี','ไม่ระบุ']">
-                ${it.radio}<span><g:message code="${it.label}"/></span>
-            </g:radioGroup>
-            <h4>การบาดเจ็บ</h4>
-            <ul>
-                <g:radioGroup name="injury3" values="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']"
-                              labels="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-        </div>
-    </div>
-</div>
+                $selectElement.find('#personDrivingLicense').attr('name',"personDrivingLicense_"+personCount);
+                $selectElement.find('#countPassenger_1').attr('name',"countPassenger_"+personCount);
+                $selectElement.find('#carRegistrationA').attr('name',"carRegistrationA_"+personCount);
+                $selectElement.find('#carRegistrationB').attr('name',"carRegistrationB_"+personCount);carBrand
 
-<div id="sec8" style="display:none">
-    <div class="extra container">
-        <h2 align="middle">Section ข้อมูลเกี่ยวกับผู้โดยสาร/ตำเเหน่งที่นั่ง</h2>
-        <div class="boxA" style="height: 700px">
-            <h4>ผู้โดยสาร คันที่1 คนที่1</h4>
-            <h4>ตำเเหน่ง ที่นั่ง</h4>
-            <ul>
-                <g:radioGroup name="seatPosition1_1" values="['ซ้อนท้าย จยย.', 'ด้านหน้ารถยนต์', 'ด้านหลังรถยนต์']"
-                              labels="['ซ้อนท้าย จยย.', 'ด้านหน้ารถยนต์', 'ด้านหลังรถยนต์']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-            <h4>อายุผู้โดยสาร</h4>
-            <ul>
-                <g:field type="text" name="passengerAge1_1" id="passengerAge"
-                         placeholder="ระบุ" maxlength="50"/>
-            </ul>
-            <h4>เพศผู้โดยสาร</h4>
-            <ul>
-                <g:radioGroup name="passengerGender1_1" values="['ญ', 'ช']"
-                              labels="['หญิง', 'ชาย']">
-                    ${it.radio}<span><g:message code="${it.label}"/></span>
-                </g:radioGroup>
-            </ul>
-            <h4>การใช้อุปกรณ์นิรภัยของผู้ขับขี่</h4>
-            <g:radioGroup name="passengerEquipment1_1" values="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']"
-                          labels="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']">
-                ${it.radio}<span><g:message code="${it.label}"/></span>
-            </g:radioGroup>
-            <h4>การบาดเจ็บ</h4>
-            <ul>
-                <g:radioGroup name="passengerInjury1_1" values="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']"
-                              labels="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-        </div>
+                $selectElement.find('#carBrand').attr('name',"carBrand_"+personCount)
+                $selectElement.find('#name').attr('name',"name_"+personCount)
+                $selectElement.find('#lastName').attr('name',"lastName_"+personCount)
+                $selectElement.find('#identificationCard').attr('name',"identificationCard_"+personCount)
+                $selectElement.find('#age').attr('name',"age_"+personCount)
 
-        <div class="boxB" style="height: 700px">
-            <h4>ผู้โดยสาร คันที่1 คนที่2</h4>
-            <h4>ตำเเหน่ง ที่นั่ง</h4>
-            <ul>
-                <g:radioGroup name="seatPosition1_2" values="['ซ้อนท้าย จยย.', 'ด้านหน้ารถยนต์', 'ด้านหลังรถยนต์']"
-                              labels="['ซ้อนท้าย จยย.', 'ด้านหน้ารถยนต์', 'ด้านหลังรถยนต์']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-            <h4>อายุผู้โดยสาร</h4>
-            <ul>
-                <g:field type="text" name="passengerAge1_2" id="passengerAge"
-                         placeholder="ระบุ" maxlength="50"/>
-            </ul>
-            <h4>เพศผู้โดยสาร</h4>
-            <ul>
-                <g:radioGroup name="passengerGender1_2" values="['ญ', 'ช']"
-                              labels="['หญิง', 'ชาย']">
-                    ${it.radio}<span><g:message code="${it.label}"/></span>
-                </g:radioGroup>
-            </ul>
-            <h4>การใช้อุปกรณ์นิรภัยของผู้ขับขี่</h4>
-            <g:radioGroup name="passengerEquipment1_2" values="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']"
-                          labels="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']">
-                ${it.radio}<span><g:message code="${it.label}"/></span>
-            </g:radioGroup>
-            <h4>การบาดเจ็บ</h4>
-            <ul>
-                <g:radioGroup name="passengerInjury1_2" values="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']"
-                              labels="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-        </div>
+                $selectElement.find('#personDrivingLicense').attr('name',"personDrivingLicense_"+personCount);
+                $selectElement.find('#personGender').attr('name',"personGender_"+personCount);
+                $selectElement.find('#personEquipment').attr('name',"personEquipment_"+personCount);
+                $selectElement.find('#personDrug').attr('name',"personDrug_"+personCount);
+                $selectElement.find('#personInjury').attr('name',"personInjury_"+personCount);
 
-        <div class="boxC" style="height: 700px">
-            <h4>ผู้โดยสาร คันที่1 คนที่3</h4>
-            <h4>ตำเเหน่ง ที่นั่ง</h4>
-            <ul>
-                <g:radioGroup name="seatPosition1_3" values="['ซ้อนท้าย จยย.', 'ด้านหน้ารถยนต์', 'ด้านหลังรถยนต์']"
-                              labels="['ซ้อนท้าย จยย.', 'ด้านหน้ารถยนต์', 'ด้านหลังรถยนต์']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-            <h4>อายุผู้โดยสาร</h4>
-            <ul>
-                <g:field type="text" name="passengerAge1_3" id="passengerAge"
-                         placeholder="ระบุ" maxlength="50"/>
-            </ul>
-            <h4>เพศผู้โดยสาร</h4>
-            <ul>
-                <g:radioGroup name="passengerGender1_3" values="['ญ', 'ช']"
-                              labels="['หญิง', 'ชาย']">
-                    ${it.radio}<span><g:message code="${it.label}"/></span>
-                </g:radioGroup>
-            </ul>
-            <h4>การใช้อุปกรณ์นิรภัยของผู้ขับขี่</h4>
-            <g:radioGroup name="passengerEquipment1_3" values="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']"
-                          labels="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']">
-                ${it.radio}<span><g:message code="${it.label}"/></span>
-            </g:radioGroup>
-            <h4>การบาดเจ็บ</h4>
-            <ul>
-                <g:radioGroup name="passengerInjury1_3" values="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']"
-                              labels="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-        </div>
-    </div>
-</div>
+                $selectElement.find('#seatPosition').attr('name',"seatPosition_"+personCount+"_1");
+                $selectElement.find('#passengerAge').attr('name',"passengerAge_"+personCount+"_1");
+                $selectElement.find('#passengerGender').attr('name',"passengerGender_"+personCount+"_1");
+                $selectElement.find('#passengerEquipment').attr('name',"passengerEquipment"+personCount+"_1");
+                $selectElement.find('#passengerInjury').attr('name',"passengerInjury"+personCount+"_1");
 
-<div id="sec8_1" style="display:none">
-    <div class="extra container">
-        <div class="boxA" style="height: 700px">
-            <h4>ผู้โดยสาร คันที่2 คนที่1</h4>
-            <h4>ตำเเหน่ง ที่นั่ง</h4>
-            <ul>
-                <g:radioGroup name="seatPosition2_1" values="['ซ้อนท้าย จยย.', 'ด้านหน้ารถยนต์', 'ด้านหลังรถยนต์']"
-                              labels="['ซ้อนท้าย จยย.', 'ด้านหน้ารถยนต์', 'ด้านหลังรถยนต์']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-            <h4>อายุผู้โดยสาร</h4>
-            <ul>
-                <g:field type="text" name="passengerAge2_1" id="passengerAge"
-                         placeholder="ระบุ" maxlength="50"/>
-            </ul>
-            <h4>เพศผู้โดยสาร</h4>
-            <ul>
-                <g:radioGroup name="passengerGender2_1" values="['ญ', 'ช']"
-                              labels="['หญิง', 'ชาย']">
-                    ${it.radio}<span><g:message code="${it.label}"/></span>
-                </g:radioGroup>
-            </ul>
-            <h4>การใช้อุปกรณ์นิรภัยของผู้ขับขี่</h4>
-            <g:radioGroup name="passengerEquipment2_1" values="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']"
-                          labels="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']">
-                ${it.radio}<span><g:message code="${it.label}"/></span>
-            </g:radioGroup>
-            <h4>การบาดเจ็บ</h4>
-            <ul>
-                <g:radioGroup name="passengerInjury2_1" values="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']"
-                              labels="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-        </div>
+                $selectElement.appendTo('#contentSec6');
+            }
+            function addPassengerElement(personId){
+                $('#countPassenger_'+personId).val(parseInt($('#countPassenger_'+personId).val())+1);
+                var passengerNum =  $('#countPassenger_'+personId).val();
+                var $selectElement = masterElementPassenger.clone();
+                $selectElement.find( '.personNumText').html(personId);
+                $selectElement.find( '.passengerNumText').html(passengerNum);
 
-        <div class="boxB" style="height: 700px">
-            <h4>ผู้โดยสาร คันที่1 คนที่2</h4>
-            <h4>ตำเเหน่ง ที่นั่ง</h4>
-            <ul>
-                <g:radioGroup name="seatPosition2_2" values="['ซ้อนท้าย จยย.', 'ด้านหน้ารถยนต์', 'ด้านหลังรถยนต์']"
-                              labels="['ซ้อนท้าย จยย.', 'ด้านหน้ารถยนต์', 'ด้านหลังรถยนต์']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-            <h4>อายุผู้โดยสาร</h4>
-            <ul>
-                <g:field type="text" name="passengerAge2_2" id="passengerAge"
-                         placeholder="ระบุ" maxlength="50"/>
-            </ul>
-            <h4>เพศผู้โดยสาร</h4>
-            <ul>
-                <g:radioGroup name="passengerGender2_2" values="['ญ', 'ช']"
-                              labels="['หญิง', 'ชาย']">
-                    ${it.radio}<span><g:message code="${it.label}"/></span>
-                </g:radioGroup>
-            </ul>
-            <h4>การใช้อุปกรณ์นิรภัยของผู้ขับขี่</h4>
-            <g:radioGroup name="passengerEquipment2_2" values="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']"
-                          labels="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']">
-                ${it.radio}<span><g:message code="${it.label}"/></span>
-            </g:radioGroup>
-            <h4>การบาดเจ็บ</h4>
-            <ul>
-                <g:radioGroup name="passengerInjury2_2" values="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']"
-                              labels="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-        </div>
 
-        <div class="boxC" style="height: 700px">
-            <h4>ผู้โดยสาร คันที่1 คนที่3</h4>
-            <h4>ตำเเหน่ง ที่นั่ง</h4>
-            <ul>
-                <g:radioGroup name="seatPosition2_3" values="['ซ้อนท้าย จยย.', 'ด้านหน้ารถยนต์', 'ด้านหลังรถยนต์']"
-                              labels="['ซ้อนท้าย จยย.', 'ด้านหน้ารถยนต์', 'ด้านหลังรถยนต์']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-            <h4>อายุผู้โดยสาร</h4>
-            <ul>
-                <g:field type="text" name="passengerAge2_3" id="passengerAge"
-                         placeholder="ระบุ" maxlength="50"/>
-            </ul>
-            <h4>เพศผู้โดยสาร</h4>
-            <ul>
-                <g:radioGroup name="passengerGender2_3" values="['ญ', 'ช']"
-                              labels="['หญิง', 'ชาย']">
-                    ${it.radio}<span><g:message code="${it.label}"/></span>
-                </g:radioGroup>
-            </ul>
-            <h4>การใช้อุปกรณ์นิรภัยของผู้ขับขี่</h4>
-            <g:radioGroup name="passengerEquipment2_3" values="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']"
-                          labels="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']">
-                ${it.radio}<span><g:message code="${it.label}"/></span>
-            </g:radioGroup>
-            <h4>การบาดเจ็บ</h4>
-            <ul>
-                <g:radioGroup name="passengerInjury2_3" values="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']"
-                              labels="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-        </div>
-    </div>
-</div>
+                $selectElement.find('#seatPosition').attr('name',"seatPosition_"+personId+"_"+passengerNum);
+                $selectElement.find('#passengerAge').attr('name',"passengerAge_"+personId+"_"+passengerNum);
+                $selectElement.find('#passengerGender').attr('name',"passengerGender_"+personId+"_"+passengerNum);
+                $selectElement.find('#passengerEquipment').attr('name',"passengerEquipment"+personId+"_"+passengerNum);
+                $selectElement.find('#passengerInjury').attr('name',"passengerInjury"+personId+"_"+passengerNum);
 
-<div id="sec8_2" style="display:none">
-    <div class="extra container">
-        <div class="boxA" style="height: 700px">
-            <h4>ผู้โดยสาร คันที่3 คนที่1</h4>
-            <h4>ตำเเหน่ง ที่นั่ง</h4>
-            <ul>
-                <g:radioGroup name="seatPosition3_1" values="['ซ้อนท้าย จยย.', 'ด้านหน้ารถยนต์', 'ด้านหลังรถยนต์']"
-                              labels="['ซ้อนท้าย จยย.', 'ด้านหน้ารถยนต์', 'ด้านหลังรถยนต์']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-            <h4>อายุผู้โดยสาร</h4>
-            <ul>
-                <g:field type="text" name="passengerAge3_1" id="passengerAge"
-                         placeholder="ระบุ" maxlength="50"/>
-            </ul>
-            <h4>เพศผู้โดยสาร</h4>
-            <ul>
-                <g:radioGroup name="passengerGender3_1" values="['ญ', 'ช']"
-                              labels="['หญิง', 'ชาย']">
-                    ${it.radio}<span><g:message code="${it.label}"/></span>
-                </g:radioGroup>
-            </ul>
-            <h4>การใช้อุปกรณ์นิรภัยของผู้ขับขี่</h4>
-            <g:radioGroup name="passengerEquipment3_1" values="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']"
-                          labels="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']">
-                ${it.radio}<span><g:message code="${it.label}"/></span>
-            </g:radioGroup>
-            <h4>การบาดเจ็บ</h4>
-            <ul>
-                <g:radioGroup name="passengerInjury3_1" values="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']"
-                              labels="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-        </div>
 
-        <div class="boxB" style="height: 700px">
-            <h4>ผู้โดยสาร คันที่3 คนที่2</h4>
-            <h4>ตำเเหน่ง ที่นั่ง</h4>
-            <ul>
-                <g:radioGroup name="seatPosition3_2" values="['ซ้อนท้าย จยย.', 'ด้านหน้ารถยนต์', 'ด้านหลังรถยนต์']"
-                              labels="['ซ้อนท้าย จยย.', 'ด้านหน้ารถยนต์', 'ด้านหลังรถยนต์']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-            <h4>อายุผู้โดยสาร</h4>
-            <ul>
-                <g:field type="text" name="passengerAge3_2" id="passengerAge"
-                         placeholder="ระบุ" maxlength="50"/>
-            </ul>
-            <h4>เพศผู้โดยสาร</h4>
-            <ul>
-                <g:radioGroup name="passengerGender3_2" values="['ญ', 'ช']"
-                              labels="['หญิง', 'ชาย']">
-                    ${it.radio}<span><g:message code="${it.label}"/></span>
-                </g:radioGroup>
-            </ul>
-            <h4>การใช้อุปกรณ์นิรภัยของผู้ขับขี่</h4>
-            <g:radioGroup name="passengerEquipment3_2" values="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']"
-                          labels="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']">
-                ${it.radio}<span><g:message code="${it.label}"/></span>
-            </g:radioGroup>
-            <h4>การบาดเจ็บ</h4>
-            <ul>
-                <g:radioGroup name="passengerInjury3_2" values="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']"
-                              labels="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-        </div>
+                $selectElement.appendTo('#allPassenger_'+personId);
+                //alert($('#countPassenger_'+personId).val());
+            }
 
-        <div class="boxC" style="height: 700px">
-            <h4>ผู้โดยสาร คันที่3 คนที่3</h4>
-            <h4>ตำเเหน่ง ที่นั่ง</h4>
-            <ul>
-                <g:radioGroup name="seatPosition3_3" values="['ซ้อนท้าย จยย.', 'ด้านหน้ารถยนต์', 'ด้านหลังรถยนต์']"
-                              labels="['ซ้อนท้าย จยย.', 'ด้านหน้ารถยนต์', 'ด้านหลังรถยนต์']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
-            <h4>อายุผู้โดยสาร</h4>
-            <ul>
-                <g:field type="text" name="passengerAge3_3" id="passengerAge"
-                         placeholder="ระบุ" maxlength="50"/>
-            </ul>
-            <h4>เพศผู้โดยสาร</h4>
-            <ul>
-                <g:radioGroup name="passengerGender3_3" values="['ญ', 'ช']"
-                              labels="['หญิง', 'ชาย']">
-                    ${it.radio}<span><g:message code="${it.label}"/></span>
-                </g:radioGroup>
-            </ul>
-            <h4>การใช้อุปกรณ์นิรภัยของผู้ขับขี่</h4>
-            <g:radioGroup name="passengerEquipment3_3" values="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']"
-                          labels="['หมวกนิรภัย', 'เข็มขัดนิรภัย','ไม่ใช้','ไม่ระบุ']">
-                ${it.radio}<span><g:message code="${it.label}"/></span>
-            </g:radioGroup>
-            <h4>การบาดเจ็บ</h4>
-            <ul>
-                <g:radioGroup name="passengerInjury3_3" values="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']"
-                              labels="['ตายที่จุดเกิดเหตุ', 'ตายที่โรงพยาบาล','บาดเจ็บสาหัส','บาดเจ็บเล็กน้อย']">
-                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
-                </g:radioGroup>
-            </ul>
+        </script>
+        <g:field type="hidden" name="countPerson" id="countPerson"  value="1" />
+        <input type="button" value="AddPerson" onclick="addPerson()" />
+        <div id="person" class="fullbox">
+            <div style="padding: 10px">
+                <table width="90%" align="center">
+                    <tr>
+                        <td colspan="2"><h4>ประเภทผู้ใช้ถนน คันที่ <span class="personNumText">1</span></h4></td>
+                    </tr>
+                    <tr>
+                        <td width="40%">
+                            <ul>
+                                <g:radioGroup name="carType_1" values="${carType.id}" id="carType"
+                                              labels="${carType.name}">
+                                    <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
+                                </g:radioGroup>
+                            </ul>
+
+
+                        </td>
+                        <td>
+                            <g:field type="hidden" name="countPassenger_1" id="countPassenger_1"  value="1" />
+                            <table width="100%">
+                                <tr>
+                                    <td width="35%"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td> <h4>หมายเลขทะเบียนรถ</h4></td>
+                                    <td>  <g:field type="text" name="carRegistrationA_1" id="carRegistrationA"   size="2" maxlength="2"/>
+                                        <g:field type="text" name="carRegistrationB_1" id="carRegistrationB" size="4" maxlength="4" onkeypress="return isNumber(event);"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><h4>ยี่ห้อรถ</h4></td>
+                                    <td> <g:field type="text" name="carBrand_1" id="carBrand" value="" placeholder="ระบุ" size="20" maxlength="20"/></td>
+                                </tr>
+                                <tr>
+                                    <td> <h4>ชื่อผู้ขับขี่หรือผู้ใช้ถนน</h4></td>
+                                    <td> <g:field type="text" name="name_1"  id="name"  value="" maxlength="50"/></td>
+                                </tr>
+                                <tr>
+                                    <td><h4>นามสกุลผู้ขับขี่หรือผู้ใช้ถนน</h4></td>
+                                    <td><g:field type="text" name="lastName_1"  id="lastName"  value="" maxlength="50"/></td>
+                                </tr>
+                                <tr>
+                                    <td><h4>หมายเลขประจำตัวประชาชน</h4></td>
+                                    <td>    <g:field type="text" name="identificationCard_1" id="identificationCard" value="" placeholder="ระบุ" size="20" maxlength="13"
+                                                     onkeypress="return isNumber(event);"/></td>
+                                </tr>
+                                <tr>
+                                    <td> <h4>ใบขับขี่ของผู้ขับขี่</h4></td>
+                                    <td>
+                                        <g:radioGroup name="personDrivingLicense_1"
+                                                      id="personDrivingLicense"
+                                                      values="${personDrivingLicense.id}"
+                                                      labels="${personDrivingLicense.name}">
+                                            ${it.radio}<span><g:message code="${it.label}"/></span>
+                                        </g:radioGroup></td>
+                                </tr>
+                                <tr>
+                                    <td> <h4>อายุผู้ขับขี่หรือผู้ใช้ถนน (ปี)</h4></td>
+                                    <td>  <g:field type="text" name="age_1" id="age"  value="" placeholder="ระบุ" size="2"
+                                                   maxlength="2" onkeypress="return isNumber(event);" /></td>
+                                </tr>
+                                <tr>
+                                    <td>   <h4>เพศผู้ขับขี่หรือผู้ใช้ถนน</h4></td>
+                                    <td>  <g:radioGroup name="personGender_1"
+                                                        id="personGender"
+                                                        values="${personGender.id}"
+                                                        labels="${personGender.name}">
+                                        ${it.radio}<span><g:message code="${it.label}"/></span>
+                                    </g:radioGroup></td>
+                                </tr>
+                                <tr>
+                                    <td><h4>การใช้อุปกรณ์นิรภัยของผู้ขับขี่</h4></td>
+                                    <td><g:radioGroup name="personEquipment_1"
+                                                      id="personEquipment"
+                                                      values="${personEquipment.id}"
+                                                      labels="${personEquipment.name}">
+                                        ${it.radio}<span><g:message code="${it.label}"/></span>
+                                    </g:radioGroup></td>
+                                </tr>
+                                <tr>
+                                    <td><h4>การเสพของมึนเมาหรือยา</h4></td>
+                                    <td> <g:radioGroup name="personDrug_1"
+                                                       id="personDrug"
+                                                       values="${personDrug.id}"
+                                                       labels="${personDrug.name}">
+                                        ${it.radio}<span><g:message code="${it.label}"/></span>
+                                    </g:radioGroup></td>
+                                </tr>
+                                <tr>
+                                    <td> <h4>การบาดเจ็บ</h4></td>
+                                    <td><ul>
+                                        <g:radioGroup name="personInjury_1"
+                                                      id="personInjury"
+                                                      values="${personInjury.id}"
+                                                      labels="${personInjury.name}">
+                                            <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
+                                        </g:radioGroup>
+                                    </ul></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <table width="100%"  id="allPassenger_1">
+                                <tr>
+                                    <td colspan="2"><hr/></td>
+                                </tr>
+                                <tr><td colspan="2"> <h2 align="middle">Section ข้อมูลเกี่ยวกับผู้โดยสาร/ตำเเหน่งที่นั่ง</h2></td> </tr>
+                                <tr>
+                                    <td colspan="2"><input type="button" value="Add Passenger" id="addPassenger" onclick="addPassengerElement(1)" /></td>
+                                </tr>
+                                <tr id="passenger">
+                                    <td colspan="2">
+                                        <table width="100%">
+                                            <tr>
+                                                <td colspan="2"><h4>ผู้โดยสาร คันที่<span class="personNumText">1</span> คนที่ <span class="passengerNumText">1</span> </h4></td>
+                                            </tr>
+                                            <tr>
+                                                <td  width="35%"><h4>ตำเเหน่ง ที่นั่ง</h4></td>
+                                                <td>  <ul>
+                                                    <g:radioGroup name="seatPosition_1_1" id="seatPosition" values="${seatPosition.id}"
+                                                                  labels="${seatPosition.name}">
+                                                        <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
+                                                    </g:radioGroup>
+                                                </ul></td>
+                                            </tr>
+                                            <tr>
+                                                <td><h4>อายุผู้โดยสาร</h4></td>
+                                                <td> <ul>
+                                                    <g:field type="text" name="passengerAge_1_1" id="passengerAge"
+                                                             placeholder="ระบุ" maxlength="50"/>
+                                                </ul></td>
+                                            </tr>
+                                            <tr>
+                                                <td>  <h4>เพศผู้โดยสาร</h4></td>
+                                                <td> <ul>
+                                                    <g:radioGroup name="passengerGender_1_1" id="passengerGender" values="${passengerGender.id}"
+                                                                  labels="${passengerGender.name}">
+                                                        ${it.radio}<span><g:message code="${it.label}"/></span>
+                                                    </g:radioGroup>
+                                                </ul></td>
+                                            </tr>
+                                            <tr>
+                                                <td><h4>การใช้อุปกรณ์นิรภัยของผู้ขับขี่</h4></td>
+                                                <td> <g:radioGroup name="passengerEquipment_1_1" id="passengerEquipment"
+                                                                   values="${passengerEquipment.id}"
+                                                                   labels="${passengerEquipment.name}">
+                                                    ${it.radio}<span><g:message code="${it.label}"/></span>
+                                                </g:radioGroup></td>
+                                            </tr>
+                                            <tr>
+                                                <td><h4>การบาดเจ็บ</h4></td>
+                                                <td>
+                                                    <ul>
+                                                        <g:radioGroup name="passengerInjury_1_1"
+                                                                      id="passengerInjury"
+                                                                      values="${passengerInjury.id}"
+                                                                      labels="${passengerInjury.name}">
+                                                            <li>${it.radio}<span><g:message code="${it.label}"/></span></li>
+                                                        </g:radioGroup>
+                                                    </ul></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+            </table>
+            </div>
         </div>
     </div>
 </div>
@@ -1037,21 +771,11 @@
         <div class="boxA" style="height: 700px">
             <h2 align="middle">Section มูลเหตุที่สันนิษฐาน</h2>
             <ul>
-                <g:radioGroup name="reason" values="['ขับรถเร็วเกินอัตราที่กำหนด', 'มีการตัดหน้าระยะกระชั้นชิด', 'แซงรถอย่างผิดกฎหมาย'
-                        ,'ขับรถไม่เปิดไฟ/ไม่ใช้แสงสว่างตามกำหนด','ไม่ให้สัญญาณชะลอ/เลี้ยว','ไม่ให้สัญญาณเข้าจอด หรือออกจากที่จอด','ไม่ให้สิทธิรถที่มาก่อนผ่านทาง เช่น ทางแยก'
-                        ,'รถเสียไม่แสดงเครื่องหมายหรือสัญญาณไฟที่กำหนด'
-                        ,'ฝ่าฝืนป้ายหยุดขณะออกจากทางร่วมแยก','ไม่ขับรถในช่องทางเดินรถซ้ายสุดในถนนที่มี 4 ช่องทาง'
-                        ,'ฝ่าฝืนสัญญาณไฟ/เครื่องหมายจราจร','บรรทุกเกินอัตรา','ขับรถไม่ชำนาญ/ไม่เป็น','อุปกรณ์รถบกพร่อง'
-                        ,'มีสิ่งกีดขวางบนถนน','เมาสุรา','หลับใน','0']"
-                              labels="['ขับรถเร็วเกินอัตราที่กำหนด', 'มีการตัดหน้าระยะกระชั้นชิด', 'แซงรถอย่างผิดกฎหมาย'
-                                      ,'ขับรถไม่เปิดไฟ/ไม่ใช้แสงสว่างตามกำหนด','ไม่ให้สัญญาณชะลอ/เลี้ยว','ไม่ให้สัญญาณเข้าจอด หรือออกจากที่จอด','ไม่ให้สิทธิรถที่มาก่อนผ่านทาง เช่น ทางแยก'
-                                      ,'รถเสียไม่แสดงเครื่องหมายหรือสัญญาณไฟที่กำหนด'
-                                      ,'ฝ่าฝืนป้ายหยุดขณะออกจากทางร่วมแยก','ไม่ขับรถในช่องทางเดินรถซ้ายสุดในถนนที่มี 4 ช่องทาง'
-                                      ,'ฝ่าฝืนสัญญาณไฟ/เครื่องหมายจราจร','บรรทุกเกินอัตรา','ขับรถไม่ชำนาญ/ไม่เป็น','อุปกรณ์รถบกพร่อง'
-                                      ,'มีสิ่งกีดขวางบนถนน','เมาสุรา','หลับใน','อื่นๆ']">
+                <g:radioGroup name="reason" values="${reason.id}"
+                              labels="${reason.name}">
                     <li>${it.radio}<span><g:message code="${it.label}"/>
                     <g:if test="${it.label == 'อื่นๆ'}">
-                        <g:field type="text" name="reasonOther" id="reasonOther"
+                        <g:field type="text" name="reasonDetail" id="reasonDetail"
                                  placeholder="ระบุ" maxlength="50"/>
                     </g:if>
                     </span></li>
@@ -1063,15 +787,11 @@
         <div class="boxB" style="height: 700px">
             <h2 align="middle">Section รูปแบบการชน</h2>
             <ul>
-                <g:radioGroup name="crashPattern" values="['ชนที่ทางเเยก', 'ชนที่จุดยูเทิร์น', 'ชนประสานงา'
-                        ,'ชนท้าย','ชนด้านข้าง','พลิกคว่ำ/ตกถนน'
-                        ,'ชนสิ่งกีดขวางข้างทาง','0']"
-                              labels="['ชนที่ทางเเยก', 'ชนที่จุดยูเทิร์น', 'ชนประสานงา'
-                                      ,'ชนท้าย','ชนด้านข้าง','พลิกคว่ำ/ตกถนน'
-                                      ,'ชนสิ่งกีดขวางข้างทาง','อื่นๆ']">
+                <g:radioGroup name="crashPattern" values="${crashPattern.id}"
+                              labels="${crashPattern.name}">
                     <li>${it.radio}<span><g:message code="${it.label}"/>
                     <g:if test="${it.label == 'อื่นๆ'}">
-                        <g:field type="text" name="crashPatternOther" id="crashPatternOther"
+                        <g:field type="text" name="crashPatternDetail" id="crashPatternDetail"
                                  placeholder="ระบุ" maxlength="50"/>
                     </g:if>
                     </span></li>

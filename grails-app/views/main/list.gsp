@@ -42,32 +42,28 @@
         <table id="dataTablesList">
             <tr>
                 <th>Delete</th>
-                <th>พิกัด</th>
+                <th>ที่</th>
+                <th>ชื่อสถานีตำรวจนครบาล</th>
+                <th>เล่มที่/หน้า</th>
+                <th>เลขคดี</th>
                 <th>วันที่เกิดเหตุ</th>
-                <th>เวลา</th>
-                <th>จำนวนผู้เสียชีวิต</th>
-                <th>จำนวนผู้บาดเจ็บ</th>
-                <th>จำนวนรถ</th>
-                <th>ประเภทรถ</th>
-                <th>มูลเหตุ</th>
-                <th>ชนิดถนน</th>
+                <th>ละติจูด</th>
+                <th>ลองติจูด</th>
                 <th>#</th>
             </tr>
             <!-- Loop -->
             <g:each in="${accidents}" var="accident">
                 <tr>
                     <td><input type="checkbox" name="record1"></td>
-                    <td>(${accident.id} )  23432.124,1234123.124132</td>
-                    <td>34 มิถุนายน 2557</td>
-                    <td>23:22</td>
-                    <td>1-5</td>
-                    <td>0</td>
-                    <td>1-5</td>
-                    <td>จักรยานยนต์</td>
-                    <td>ขับรถเร็วเกินอัตราที่กำหนด</td>
-                    <td>ถนน</td>
+                    <td>${accident.id}</td>
+                    <td>${accident.policeStation}</td>
+                    <td>${accident.bookPage}</td>
+                    <td>${accident.caseId}</td>
+                    <td>${accident.dateAccident}</td>
+                    <td>${accident.lat}</td>
+                    <td>${accident.lon}</td>
                     <td>
-                        <a href="${createLink(controller :'main',action: 'edit',params: [editView:1,selectId:accident.id])}" >EDIT MAP</a>
+                        <a href="${createLink(controller :'main',action: 'edit',params: [editView:1,selectId:accident.id])}" >EDIT MAP</a> | 
                         <a href="${createLink(controller :'main',action: 'edit',params: [editView:2,selectId:accident.id])}" >EDIT</a>
                     </td>
                 </tr>

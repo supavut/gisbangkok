@@ -1,10 +1,11 @@
+import org.codehaus.groovy.grails.orm.hibernate.cfg.GrailsAnnotationConfiguration
+
 dataSource {
     //pooled = true
     //jmxExport = true
     //driverClassName = "org.h2.Driver"
     //username = "sa"
     //password = ""
-
     pooled = true
     driverClassName = "com.mysql.jdbc.Driver"
     dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
@@ -29,7 +30,7 @@ environments {
         //    url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
         // }
         dataSource {
-            dbCreate = "create-update"//"test" // one of 'create', 'create-drop','update'
+            dbCreate = "create-drop"//"test" // one of 'create', 'create-drop','update'
             url = "jdbc:mysql://localhost/test?useUnicode=yes&characterEncoding=UTF-8"
             username = "root"
             password = ""
