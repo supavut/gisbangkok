@@ -31,7 +31,9 @@ import com.accident.config.person.PersonDrug
 import com.accident.config.person.PersonEquipment
 import com.accident.config.person.PersonGender
 import com.accident.config.person.PersonInjury
+import grails.plugin.springsecurity.annotation.Secured
 
+@Secured('ROLE_ADMIN')
 class MainController {
 
     def index() {

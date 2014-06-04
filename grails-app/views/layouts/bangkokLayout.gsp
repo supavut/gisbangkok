@@ -35,6 +35,7 @@
                     <li class="${actionName=='index'?'current_page_item':''}"><a href="${createLink(controller :'main',action: 'index')}" accesskey="1" title="">Home</a></li>
                     <li class="${actionName=='create'?'current_page_item':''}"><a href="${createLink(controller :'main',action: 'create')}" accesskey="2" title="">Create data</a></li>
                     <li class="${actionName=='list'?'current_page_item':''}"><a href="${createLink(controller :'main',action: 'list')}" accesskey="3" title="">List data</a></li>
+                    <li><a href="${createLink(controller :'logout')}" accesskey="3" title="">Logout</a></li>
                 </ul>
             </div>
         </div>

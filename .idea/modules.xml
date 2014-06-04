@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Road_Accident_Phase1.iml" filepath="$PROJECT_DIR$/Road_Accident_Phase1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Road_Accident_Phase1-grailsPlugins.iml" filepath="$PROJECT_DIR$/Road_Accident_Phase1-grailsPlugins.iml" />
+      <module fileurl="file://$PROJECT_DIR$/accident1.iml" filepath="$PROJECT_DIR$/accident1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/accident1-grailsPlugins.iml" filepath="$PROJECT_DIR$/accident1-grailsPlugins.iml" />
     </modules>
   </component>
 </project>

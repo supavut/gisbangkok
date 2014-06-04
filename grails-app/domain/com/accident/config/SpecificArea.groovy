@@ -9,6 +9,4 @@ class SpecificArea {
     static constraints = {
         name unique: true, nullable: false
     }
-
-
 }

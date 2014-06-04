@@ -63,7 +63,7 @@
                     <td>${accident.lat}</td>
                     <td>${accident.lon}</td>
                     <td>
-                        <a href="${createLink(controller :'main',action: 'edit',params: [editView:1,selectId:accident.id])}" >EDIT MAP</a> | 
+                        <a href="${createLink(controller :'main',action: 'edit',params: [editView:1,selectId:accident.id])}" >EDIT MAP</a> |
                         <a href="${createLink(controller :'main',action: 'edit',params: [editView:2,selectId:accident.id])}" >EDIT</a>
                     </td>
                 </tr>

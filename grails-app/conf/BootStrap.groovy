@@ -1,3 +1,6 @@
+import com.accident.Role
+import com.accident.User
+import com.accident.UserRole
 import com.accident.config.AccidentType
 import com.accident.config.CrashPattern
 import com.accident.config.Horizontal
@@ -30,11 +33,8 @@ class BootStrap {
 
     def init = { servletContext ->
 
-
-
         String[] specificArea = ["ถนนทั่วไป ไม่มีทางขนาน", "ทางหลัก", "ทางขนาน", "ทางเข้าหรือออกทางหลัก", "ไม่ระบุ"]
         specificArea.each { name ->
-
             def item = new SpecificArea(name: name)
             item.save()
         }
@@ -244,6 +244,15 @@ class BootStrap {
             def item = new PassengerInjury(name: name)
             item.save()
         }
+
+        def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
+        def userRole = new Role(authority: 'ROLE_USER').save(flush: true)
+
+        def testUser = new User(username: 'admin', password: 'admin')
+        testUser.save(flush: true)
+
+        UserRole.create testUser, adminRole, true
+
 
     }
     def destroy = {
